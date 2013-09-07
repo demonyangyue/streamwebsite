@@ -1,0 +1,31 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "流媒体服务器" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Welcome to Our MIMO Streaming Server" %}</h1>
+    
+    <h2>About Our Server</h2>
+    <p>
+        {% blocktrans %}
+        This is a MIMO Streaming Server which connects to muti-channel live sources,<br>
+        and you can  browse file sources stored in this server as well.
+        {% endblocktrans %}
+    </p>
+    
+    {% if user.is_authenticated %}
+        {% url apps.xml_RPC.views.showSource as show_source_url %}
+        <p>{% blocktrans %}Roaming in our<a href="{{ show_source_url }}" class="btn primary large">sever</a>{% endblocktrans %}</p>
+    {% else %}
+        {% url acct_login as login_url %}
+        {% ifsetting ACCOUNT_OPEN_SIGNUP %}
+            {% url acct_signup as signup_url %}
+            <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn">Log In</a> or <a href="{{ signup_url }}" class="btn primary">Sign Up</a> to try out the site.{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn primary large">Log In</a> to try out the site.{% endblocktrans %}</p>
+        {% endifsetting %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+{% block body %}
+    <h2>media</h2>
+    <ul>
+       <h3>live_source</h3> 
+        <ul>
+            {% for name in LiveSource %}
+                <a href="xml_RPC/play_source/{{ name }}" target="_blank"><li>{{ name }}</li></a>
+            {% endfor %}
+        </ul>
+        <h3>file_source</h3> 
+        <ul>
+            {% for source in FileSource %}
+                <a href="xml_RPC/play_source/{{ source.name }}" target="_blank"><li>{{ source.name }}</li></a>
+            {% endfor %}
+        </ul>
+    </ul>
+{% endblock %}
